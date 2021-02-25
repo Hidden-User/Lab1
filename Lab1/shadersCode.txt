@@ -1,0 +1,33 @@
+// Vertex shader
+cbuffer CB : register(b0)
+{
+	matrix proj;
+	float4 pC;
+}
+
+struct POINT
+{
+	float4 pos : SV_POSITION;
+	float4 color : COLOR0;
+};
+
+POINT VS(float4 position : POSITION)
+{
+	POINT out = (POINT)0;
+	out.pos = mul(position, proj);
+	out.color = pC;
+	return out;
+}
+
+// Pixel shader
+
+struct POINT
+{
+	float4 pos : SV_POSITION;
+	float4 color : COLOR0;
+};
+
+float4 PS(POINT input) : SV_Target
+{
+	return input.color;
+}
